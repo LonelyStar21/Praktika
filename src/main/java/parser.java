@@ -8,6 +8,8 @@ import java.net.URL;
 
 public class parser {
 
+    private static Object Element;
+
     private static Document getPage()throws IOException{
         String url = "https://poezdato.net/raspisanie-po-stancyi/samara/elektrichki/";
         Document page = Jsoup.parse(new URL(url),3000);
@@ -18,9 +20,13 @@ public class parser {
         Document page= getPage();
         //css query language
         Element tbody = page.select("tbody").first();
-        Elements names = tbody.select("tr[class=odd]");
-        System.out.println(tbody);
-        String number = "";
-        System.out.println("Тип  Номер  Маршрут  Прибытие  Стоянка  Отправление");
+        Elements rows = tbody.select("tr");
+        Elements cells = tbody.select("td");
+
+        for(Element cell : cells ) {
+            String cellText = cell.text();
+            String cellUrl = cell.attr("href");
+            System.out.println(cellText);
+        }
     }
 }
