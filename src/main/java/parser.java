@@ -11,13 +11,14 @@ public class parser {
     private static Object Element;
     private  static int counter = 1;
     private static org.jsoup.nodes.Element cell;
+    private static Object parser2;
 
     private static Document getPage() throws IOException {
         String url = "https://poezdato.net/raspisanie-po-stancyi/samara/elektrichki/";
         Document page = Jsoup.parse(new URL(url), 15000);
         return page;
-    }
-    public static void main(String[] args) throws IOException {
+   }
+    public static void main (String[]args) throws IOException {
         Document page = getPage();
         //css query language
         Element tbody = page.select("tbody").first();
@@ -40,7 +41,10 @@ public class parser {
             }
             if (counter == 2) {
                 System.out.println("Номер электрички - " + cell.text());
-                System.out.println("Ссылка на маршрут - " + cell.select("a").first().attr("href"));
+               // System.out.println("Ссылка на маршрут - " + cell.select("a").first().attr("href"));
+                parser2 = new parser2();
+                parser2 p2 = new parser2();
+                p2.doParse("http://poezdato.net" + cell.select("a").first().attr("href"));
             }
             if (counter == 8) {
                 System.out.println("");
@@ -49,6 +53,7 @@ public class parser {
             counter++;
         }
     }
-
 }
+
+
 
